@@ -1,14 +1,5 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 
 import {
   Card,
@@ -23,10 +14,19 @@ import PageTitle from "@/components/PageTitle";
 import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import Link from "next/link";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import axios from "axios";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
+
+export default function EduDetailsWrapper() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <EduDetails />
+    </Suspense>
+  );
+}
+
 const EduDetails = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -222,5 +222,3 @@ const EduDetails = () => {
     </div>
   );
 };
-
-export default EduDetails;

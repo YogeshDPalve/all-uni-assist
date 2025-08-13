@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 import { Button } from "@/components/ui/button";
 import {
   InputOTP,
@@ -24,7 +25,15 @@ import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
 import axios from "axios";
 
-const ForgotPassword = () => {
+export default function ForgotPasswordWrapper() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ForgotPassword />
+    </Suspense>
+  );
+}
+
+function ForgotPassword() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const email = searchParams.get("email");
@@ -45,8 +54,9 @@ const ForgotPassword = () => {
   };
 
   const handleSubmit = async (e: any) => {
-    setIsLoading(true);
     e.preventDefault();
+    setIsLoading(true);
+
     try {
       if (!value.trim()) {
         toast.error("OTP fields cannot be empty.");
@@ -56,6 +66,7 @@ const ForgotPassword = () => {
         toast.error("Password and confirm password must be the same");
         return;
       }
+
       const data: any = await axios.put("/api/auth/reset-password", {
         email,
         otp: value,
@@ -73,7 +84,6 @@ const ForgotPassword = () => {
     } catch (err: any) {
       toast.error(
         err?.response?.data?.message ||
-          err?.response?.data?.message ||
           err?.response?.data?.errors?.[0]?.msg ||
           "Something went wrong"
       );
@@ -139,9 +149,7 @@ const ForgotPassword = () => {
                   </div>
                   <Button type="submit" disabled={isLoading} className="w-full">
                     {isLoading ? (
-                      <>
-                        <Loader2 className="animate-spin" />
-                      </>
+                      <Loader2 className="animate-spin" />
                     ) : (
                       "Reset Password"
                     )}
@@ -159,6 +167,4 @@ const ForgotPassword = () => {
       </div>
     </div>
   );
-};
-
-export default ForgotPassword;
+}
