@@ -30,6 +30,7 @@ export default function Page() {
   const [academicRecord, setAcademicRecord] = useState("");
   const [englishLevel, setEnglishLevel] = useState("");
   const [budget, setBudget] = useState("");
+  const [rankingSystem, setRankingSystem] = useState("");
 
   const handleSubmit = async () => {
     try {
@@ -39,6 +40,7 @@ export default function Page() {
         academicRecord,
         englishLevel,
         budget,
+        rankingSystem,
       };
 
       console.log("Sending data to backend:", payload);
@@ -168,6 +170,31 @@ export default function Page() {
                     <SelectItem value="b1">B1 (Intermediate)</SelectItem>
                     <SelectItem value="a2">A2 (Elementary)</SelectItem>
                     <SelectItem value="a1">A1 (Beginner)</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              {/* University Ranking standard */}
+              <div className="grid gap-2">
+                <Label>Ranking System</Label>
+                <Select onValueChange={setRankingSystem} required>
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Select Ranking System" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="qs">
+                      QS World University Rankings
+                    </SelectItem>
+                    <SelectItem value="the">
+                      Times Higher Education (THE)
+                    </SelectItem>
+                    <SelectItem value="arwu">
+                      ARWU / Shanghai Ranking
+                    </SelectItem>
+                    <SelectItem value="usnews">
+                      U.S. News & World Report
+                    </SelectItem>
+                    <SelectItem value="nirf">NIRF (India)</SelectItem>
+                    <SelectItem value="leiden">Leiden Ranking</SelectItem>
                   </SelectContent>
                 </Select>
               </div>

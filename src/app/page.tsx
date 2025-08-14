@@ -1,5 +1,6 @@
 import { About } from "@/components/about";
 import { WorldMapDemo } from "@/components/connectivity";
+import FooterGlow from "@/components/footer";
 import { GoogleGeminiEffectDemo } from "@/components/gemini-effect";
 import { Herosection } from "@/components/hero-section";
 import Pricing from "@/components/pricing";
@@ -23,10 +24,11 @@ export default async function Home() {
         <GoogleGeminiEffectDemo />
       </div>
       <div>
-   
         <TestimonialsCarousel />
       </div>
-      <div className="flex items-center justify-center "></div>
+      <div>
+        <FooterGlow />
+      </div>
     </div>
   );
 }
